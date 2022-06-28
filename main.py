@@ -10,36 +10,45 @@ def leave():  # Exits program
 
 
 def write():  # Writing new bookmarks to file
-    with open("bookmarks.txt", "a") as f:
-        label = input("\nPlease input label for bookmark: ")
-        url = input("\nPlease input URL for bookmark: ")
-        f.write(f"\n{label},{url}")
+    try:
+        with open("bookmarks.txt", "a") as f:
+            label = input("\nPlease input label for bookmark: ")
+            url = input("\nPlease input URL for bookmark: ")
+            f.write(f"\n{label},{url}")
+    except FileNotFoundError:
+        open("bookmarks.txt", "x")
+        write()
+
 
 
 def bookmarks():  # Display existing bookmarks
-    with open("bookmarks.txt", "r") as f:
-        print()
-        text = f.read()
-        text = text.split("\n")
+    try:
+        with open("bookmarks.txt", "r") as f:
+            print()
+            text = f.read()
+            text = text.split("\n")
 
-        i = 1
-        ulist = []
-        for item in text:
-            item = item.split(",")
-            if i < 10:
-                print(f"0{i}. {item[0]}")
-            else:
-                print(f"{i}. {item[0]}")
-            ulist.append(item[1].split("\n"))
-            i += 1
-        while True:
-            choice = input("\nEnter bookmark to open: ")
-            choice = int(choice)
-            if isinstance(choice, int) and choice - 1 <= len(ulist) and choice - 1 >= 0:
-                webbrowser.open(ulist[choice - 1][0])
-                break
-            else:
-                print("\nPlease enter valid input")
+            i = 1
+            ulist = []
+            for item in text:
+                item = item.split(",")
+                if i < 10:
+                    print(f"0{i}. {item[0]}")
+                else:
+                    print(f"{i}. {item[0]}")
+                ulist.append(item[1].split("\n"))
+                i += 1
+            while True:
+                choice = input("\nEnter bookmark to open: ")
+                choice = int(choice)
+                if isinstance(choice, int) and choice - 1 <= len(ulist) and choice - 1 >= 0:
+                    webbrowser.open(ulist[choice - 1][0])
+                    break
+                else:
+                    print("\nPlease enter valid input")
+    except FileNotFoundError:
+        open("bookmarks.txt", "x")
+        bookmarks()
 
 
 def choose():  # Input validated menu
