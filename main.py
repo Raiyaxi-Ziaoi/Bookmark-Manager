@@ -39,9 +39,13 @@ def bookmarks():  # Display existing bookmarks
                 ulist.append(item[1].split("\n"))
                 i += 1
             while True:
+                exceptionPass = True
                 choice = input("\nEnter bookmark to open: ")
-                choice = int(choice)
-                if isinstance(choice, int) and choice - 1 <= len(ulist) and choice - 1 >= 0:
+                try:
+                    choice = int(choice)
+                except Exception:
+                    exceptionPass = False
+                if exceptionPass and choice - 1 <= len(ulist) and choice - 1 >= 0:
                     webbrowser.open(ulist[choice - 1][0])
                     break
                 else:
