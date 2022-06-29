@@ -35,7 +35,6 @@ def write():  # Writing new bookmarks to file
         write()
 
 
-
 def bookmarks():  # Display existing bookmarks
     try:        
         with open("bookmarks.txt", "r") as f:
