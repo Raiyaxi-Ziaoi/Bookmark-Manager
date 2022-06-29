@@ -2,12 +2,14 @@ import os
 import webbrowser
 from sys import platform
 
+folderPath= "bookmarks.txt"
+
 def delete():
     while True:
         print("\nAre you sure you want to delete all bookmarks? (Y / N):")
         yn = input()
         if yn.lower() == "y":
-            os.remove("bookmarks.txt")
+            os.remove(folderPath)
             break
         elif yn.lower() == "n":
             break
@@ -23,24 +25,24 @@ def leave():  # Exits program
 
 def write():  # Writing new bookmarks to file
     try:
-        with open("bookmarks.txt", "a") as f:
+        with open(folderPath, "a") as f:
             label = input("\nPlease input label for bookmark: ")
             url = input("\nPlease input URL for bookmark: ")
-            if os.stat("bookmarks.txt").st_size == 0:
+            if os.stat(folderPath).st_size == 0:
                 f.write(f"{label},{url}")
             else:
                 f.write(f"\n{label},{url}")
     except FileNotFoundError:
-        open("bookmarks.txt", "x")
+        open(folderPath, "x")
         write()
 
 
 def bookmarks():  # Display existing bookmarks
     try:        
-        with open("bookmarks.txt", "r") as f:
+        with open(folderPath, "r") as f:
             print()
-            if os.stat("bookmarks.txt").st_size == 0:
-                pause = input("\nThe file is empty. Please press enter to return to menu.")
+            if os.stat(folderPath).st_size == 0:
+                pause = input("\nThe folder is empty. Please press enter to return to menu.")
                 choose()
             else:
                 text = f.read()
@@ -69,12 +71,43 @@ def bookmarks():  # Display existing bookmarks
                     else:
                         print("\nPlease enter valid input")
     except FileNotFoundError:
-        open("bookmarks.txt", "x")
+        open(folderPath, "x")
         bookmarks()
 
+def folderChoose():
+    while True:
+        folderIn = input("\nWhich folder do you want to open?: ")
+        if os.path.exists(folderIn + ".txt"): 
+            global folderPath
+            folderPath = folderIn + ".txt"
+            break
+        else:
+            print("\nFolder does not exist")
+    choose()
+
+def folder():
+    while True:
+        folder = input("\nPlease enter folder name: ")
+        try: 
+            open(folder + ".txt", "x")
+            break
+        except Exception:
+            print("\nFolder already exists.")
+    folderChoose()
+
+def displayFolders():
+    print()
+    file_list = [f for f in os.listdir('.') if os.path.isfile(os.path.join('.', f)) and f.endswith('.txt')]
+    i = 1
+    for file in file_list:
+        file = file.replace(".txt", "")
+        if i < 10:
+            print(f"0{i}. {file}")
+        else:
+            print(f"{i}. {file}")
 
 def choose():  # Input validated menu
-    print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Delete All Bookmarks\n4. Exit")
+    print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Delete All Bookmarks\n4. New Folder\n5. Open Folder\n6. Display All Folders\n7. Exit")
     choice = input()
     if choice == "1":
         write()
@@ -85,6 +118,13 @@ def choose():  # Input validated menu
         delete()
         choose()
     elif choice == "4":
+        folder()
+    elif choice == "5":
+        folderChoose()
+    elif choice == "6":
+        displayFolders()
+        choose()
+    elif choice == "7":
         leave()
         choose()
     else:
