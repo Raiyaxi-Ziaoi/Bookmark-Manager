@@ -2,6 +2,19 @@ import os
 import webbrowser
 from sys import platform
 
+def delete():
+    while True:
+        print("\nAre you sure you want to delete all bookmarks? (Y / N):")
+        yn = input()
+        if yn.lower() == "y":
+            os.remove("bookmarks.txt")
+            open("bookmarks.txt", "x")
+            break
+        elif yn.lower() == "n":
+            break
+        else:
+            print("\nPlease enter valid input")
+
 
 def leave():  # Exits program
     print("\nThank you for using Bookmark Manager")
@@ -63,7 +76,7 @@ def bookmarks():  # Display existing bookmarks
 
 
 def choose():  # Input validated menu
-    print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Exit")
+    print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Delete All Bookmarks\n4. Exit")
     choice = input()
     if choice == "1":
         write()
@@ -71,7 +84,10 @@ def choose():  # Input validated menu
     elif choice == "2":
         bookmarks()
     elif choice == "3":
+        delete()
+    elif choice == "4":
         leave()
+        choose()
     else:
         print("\nPlease enter valid input")
         choose()
