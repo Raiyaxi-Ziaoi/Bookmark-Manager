@@ -132,6 +132,7 @@ def choose():  # Input validated menu
     elif choice == "2":
         bookmarks()
         clearConsole()
+        choose()
     elif choice == "3":
         delete()
         clearConsole()
