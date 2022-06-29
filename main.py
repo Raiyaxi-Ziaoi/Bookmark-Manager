@@ -8,7 +8,6 @@ def delete():
         yn = input()
         if yn.lower() == "y":
             os.remove("bookmarks.txt")
-            open("bookmarks.txt", "x")
             break
         elif yn.lower() == "n":
             break
@@ -85,6 +84,7 @@ def choose():  # Input validated menu
         bookmarks()
     elif choice == "3":
         delete()
+        choose()
     elif choice == "4":
         leave()
         choose()
