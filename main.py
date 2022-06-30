@@ -44,6 +44,7 @@ def write():  # Writing new bookmarks to file
             print("\nType back to go back to menu")
             label = input("\nPlease input label for bookmark: ")
             if label.lower() == "back":
+                clearConsole()
                 choose()
             url = input("\nPlease input URL for bookmark: ")
             if url.lower() == "back":
@@ -126,6 +127,7 @@ def folder():  # Create folder
         print("\nType back to go back to menu")
         folder = input("\nPlease enter folder name: ")
         if folder.lower() == "back":
+            clearConsole()
             choose()
         try:
             open(folder + ".txt", "x")
