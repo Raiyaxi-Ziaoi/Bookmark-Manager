@@ -25,6 +25,8 @@ def delete():  # Deletes all bookmarks in a folder
             break
         else:
             print("\nPlease enter valid input")
+            input("Press enter to continue")
+            clearConsole()
     clearConsole()
 
 
@@ -88,6 +90,8 @@ def bookmarks():  # Display existing bookmarks
                         break
                     else:
                         print("\nPlease enter valid input")
+                        input("Press enter to continue")
+                        clearConsole()
     except FileNotFoundError:
         open(folderName, "x")
         bookmarks()
@@ -102,6 +106,8 @@ def folderChoose():  # Choose folder to enter
             break
         else:
             print("\nFolder does not exist")
+            input("Press enter to continue")
+            clearConsole()
     clearConsole()
     choose()
 
@@ -115,6 +121,8 @@ def folder():  # Create folder
             break
         except Exception:
             print("\nFolder already exists.")
+            input("Press enter to continue")
+            clearConsole()
     folderChoose()
 
 
@@ -163,6 +171,8 @@ def choose():  # Input validated menu
         choose()
     else:
         print("\nPlease enter valid input")
+        input("Press enter to continue")
+        clearConsole()
         choose()
 
 
