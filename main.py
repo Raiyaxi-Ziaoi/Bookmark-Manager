@@ -41,8 +41,13 @@ def write():  # Writing new bookmarks to file
     clearConsole()
     try:
         with open(folderName, "a") as f:
+            print("\nType back to go back to menu")
             label = input("\nPlease input label for bookmark: ")
+            if label.lower() == "back":
+                choose()
             url = input("\nPlease input URL for bookmark: ")
+            if url.lower() == "back":
+                choose()
             if os.stat(folderName).st_size == 0:
                 f.write(f"{label},{url}")
             else:
@@ -99,7 +104,10 @@ def bookmarks():  # Display existing bookmarks
 
 def folderChoose():  # Choose folder to enter
     while True:
+        print("\nType back to go back to menu")
         folderIn = input("\nWhich folder do you want to open?: ")
+        if folderIn.lower() == "back":
+            break
         if os.path.exists(folderIn + ".txt"):
             global folderName
             folderName = folderIn + ".txt"
@@ -115,7 +123,10 @@ def folderChoose():  # Choose folder to enter
 def folder():  # Create folder
     clearConsole()
     while True:
+        print("\nType back to go back to menu")
         folder = input("\nPlease enter folder name: ")
+        if folder.lower() == "back":
+            choose()
         try:
             open(folder + ".txt", "x")
             break
