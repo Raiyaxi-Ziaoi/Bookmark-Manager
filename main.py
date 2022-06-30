@@ -166,5 +166,6 @@ def choose():  # Input validated menu
         choose()
 
 
+os.system('COLOR 0a')
 print("Welcome to Bookmark Manager\n")
 choose()
