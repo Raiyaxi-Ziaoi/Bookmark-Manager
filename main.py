@@ -2,15 +2,17 @@ import os
 import webbrowser
 from sys import platform
 
-folderName= "bookmarks.txt"
+folderName = "bookmarks.txt"
 
-def clearConsole(): # Clears console
+
+def clearConsole():  # Clears console
     command = 'clear'
     if os.name in ('nt', 'dos'):
         command = 'cls'
     os.system(command)
 
-def delete(): # Deletes all bookmarks in a folder
+
+def delete():  # Deletes all bookmarks in a folder
     clearConsole()
     while True:
         print("\nAre you sure you want to delete all bookmarks? (Y / N):")
@@ -25,11 +27,13 @@ def delete(): # Deletes all bookmarks in a folder
             print("\nPlease enter valid input")
     clearConsole()
 
+
 def leave():  # Exits program
     clearConsole()
     print("\nThank you for using Bookmark Manager")
     input("\nPress enter to continue...")
     exit()
+
 
 def write():  # Writing new bookmarks to file
     clearConsole()
@@ -48,7 +52,7 @@ def write():  # Writing new bookmarks to file
 
 def bookmarks():  # Display existing bookmarks
     clearConsole()
-    try:        
+    try:
         with open(folderName, "r") as f:
             print()
             if os.stat(folderName).st_size == 0:
@@ -69,9 +73,12 @@ def bookmarks():  # Display existing bookmarks
                         print(f"{i}. {item[0]}")
                     ulist.append(item[1].split("\n"))
                     i += 1
+                print("\nType back to go back to menu.")
                 while True:
                     exceptionPass = True
                     choice = input("\nEnter bookmark to open: ")
+                    if choice.lower() == "back":
+                        break
                     try:
                         choice = int(choice)
                     except Exception:
@@ -85,10 +92,11 @@ def bookmarks():  # Display existing bookmarks
         open(folderName, "x")
         bookmarks()
 
-def folderChoose(): # Choose folder to enter
+
+def folderChoose():  # Choose folder to enter
     while True:
         folderIn = input("\nWhich folder do you want to open?: ")
-        if os.path.exists(folderIn + ".txt"): 
+        if os.path.exists(folderIn + ".txt"):
             global folderName
             folderName = folderIn + ".txt"
             break
@@ -97,20 +105,23 @@ def folderChoose(): # Choose folder to enter
     clearConsole()
     choose()
 
-def folder(): # Create folder
+
+def folder():  # Create folder
     clearConsole()
     while True:
         folder = input("\nPlease enter folder name: ")
-        try: 
+        try:
             open(folder + ".txt", "x")
             break
         except Exception:
             print("\nFolder already exists.")
     folderChoose()
 
-def displayFolders(): # Display all folders
+
+def displayFolders():  # Display all folders
     clearConsole()
-    file_list = [f for f in os.listdir('.') if os.path.isfile(os.path.join('.', f)) and f.endswith('.txt')]
+    file_list = [f for f in os.listdir('.') if os.path.isfile(
+        os.path.join('.', f)) and f.endswith('.txt')]
     i = 1
     for file in file_list:
         file = file.replace(".txt", "")
@@ -121,6 +132,7 @@ def displayFolders(): # Display all folders
         i += 1
     input("\nPress enter to continue")
     clearConsole()
+
 
 def choose():  # Input validated menu
     print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Delete All Bookmarks\n4. New Folder\n5. Open Folder\n6. Display All Folders\n7. Exit")
