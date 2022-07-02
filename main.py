@@ -158,37 +158,39 @@ def displayFolders():  # Display all folders
 def choose():  # Input validated menu
     print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Delete All Bookmarks\n4. New Folder\n5. Open Folder\n6. Display All Folders\n7. Exit")
     choice = input()
-    if choice == "1":
-        write()
-        clearConsole()
-        choose()
-    elif choice == "2":
-        bookmarks()
-        clearConsole()
-        choose()
-    elif choice == "3":
-        delete()
-        clearConsole()
-        choose()
-    elif choice == "4":
-        folder()
-    elif choice == "5":
-        clearConsole()
-        folderChoose()
-    elif choice == "6":
-        displayFolders()
-        choose()
-    elif choice == "7":
-        leave()
-        clearConsole()
-        choose()
-    else:
-        print("\nPlease enter valid input")
-        input("Press enter to continue")
-        clearConsole()
-        choose()
+    match choice:
+        case "1":
+            write()
+            clearConsole()
+            choose()
+        case "2":
+            bookmarks()
+            clearConsole()
+            choose()
+        case "3":
+            delete()
+            clearConsole()
+            choose()
+        case "4":
+            folder()
+        case "5":
+            clearConsole()
+            folderChoose()
+        case "6":
+            displayFolders()
+            choose()
+        case "7":
+            leave()
+            clearConsole()
+            choose()
+        case _:
+            print("\nPlease enter valid input")
+            input("Press enter to continue")
+            clearConsole()
+            choose()
 
 
-os.system('COLOR 0a')
-print("Welcome to Bookmark Manager\n")
-choose()
+if __name__ == "__main__":
+    os.system('COLOR 0a')
+    print("Welcome to Bookmark Manager\n")
+    choose()
