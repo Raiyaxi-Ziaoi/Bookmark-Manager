@@ -25,7 +25,7 @@ def delete():  # Deletes all bookmarks in a folder
             break
         else:
             print("\nPlease enter valid input")
-            input("Press enter to continue..")
+            input("Press enter to continue")
             clearConsole()
     clearConsole()
 
@@ -96,7 +96,7 @@ def bookmarks():  # Display existing bookmarks
                         break
                     else:
                         print("\nPlease enter valid input")
-                        input("Press enter to continue..")
+                        input("Press enter to continue")
                         clearConsole()
     except FileNotFoundError:
         open(folderName, "x")
@@ -115,7 +115,7 @@ def folderChoose():  # Choose folder to enter
             break
         else:
             print("\nFolder does not exist")
-            input("Press enter to continue..")
+            input("Press enter to continue")
             clearConsole()
     clearConsole()
     choose()
@@ -134,7 +134,7 @@ def folder():  # Create folder
             break
         except Exception:
             print("\nFolder already exists.")
-            input("Press enter to continue..")
+            input("Press enter to continue")
             clearConsole()
     folderChoose()
 
@@ -151,13 +151,11 @@ def displayFolders():  # Display all folders
         else:
             print(f"{i}. {file}")
         i += 1
-    input("\nPress enter to continue")
+    input("\nPress enter to continue...")
     clearConsole()
 
 
-def choose():  # Input validated menu
-    print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Delete All Bookmarks\n4. New Folder\n5. Open Folder\n6. Display All Folders\n7. Exit")
-    choice = input()
+def switch(choice):
     if choice == "1":
         write()
         clearConsole()
@@ -184,11 +182,18 @@ def choose():  # Input validated menu
         choose()
     else:
         print("\nPlease enter valid input")
-        input("Press enter to continue..")
+        input("Press enter to continue")
         clearConsole()
         choose()
 
 
-os.system('COLOR 0a')
-print("Welcome to Bookmark Manager\n")
-choose()
+def choose():  # Input validated menu
+    print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Delete All Bookmarks\n4. New Folder\n5. Open Folder\n6. Display All Folders\n7. Exit")
+    choice = input()
+    switch(choice)
+
+
+if __name__ == "__main__":
+    os.system('COLOR 0a')
+    print("Welcome to Bookmark Manager\n")
+    choose()
