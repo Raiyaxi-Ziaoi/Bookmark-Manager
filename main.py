@@ -191,6 +191,7 @@ def choose():  # Input validated menu
 
 
 if __name__ == "__main__":
+    os.system('TITLE Bookmark Manager')
     os.system('COLOR 0a')
     print("Welcome to Bookmark Manager\n")
     choose()
