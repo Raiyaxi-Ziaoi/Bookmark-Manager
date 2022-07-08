@@ -155,8 +155,77 @@ def displayFolders():  # Display all folders
     clearConsole()
 
 
+def remove_empty_lines(filename):
+    if not os.path.isfile(filename):
+        print("{} does not exist ".format(filename))
+        return
+    with open(filename) as filehandle:
+        lines = filehandle.readlines()
+    with open(filename, 'w') as filehandle:
+        lines = filter(lambda x: x.strip(), lines)
+        filehandle.writelines(lines)
+
+
+def delSpec():
+    clearConsole()
+    try:
+        with open(folderName, "r") as f:
+            print()
+            if os.stat(folderName).st_size == 0:
+                input("\nThe folder is empty. Please press enter to return to menu.")
+                clearConsole()
+                choose()
+            else:
+                text = f.read()
+                text = text.split("\n")
+
+                i = 1
+                ulist = []
+                for item in text:
+                    item = item.split(",")
+                    if i < 10:
+                        print(f"0{i}. {item[0]}")
+                    else:
+                        print(f"{i}. {item[0]}")
+                    ulist.append(item[1].split("\n"))
+                    i += 1
+                print("\nType back to go back to menu.")
+                while True:
+                    exceptionPass = True
+                    choice = input("\nEnter bookmark to delete: ")
+                    if choice.lower() == "back":
+                        break
+                    try:
+                        choice = int(choice)
+                    except Exception:
+                        exceptionPass = False
+                    if exceptionPass and choice - 1 <= len(ulist) and choice - 1 >= 0:
+                        try:
+                            with open(folderName, 'r') as fr:
+                                lines = fr.readlines()
+                                ptr = 1
+                                with open(folderName, 'w') as fw:
+                                    for line in lines:
+                                        if ptr != choice:
+                                            fw.write(line)
+                                        ptr += 1
+                        except:
+                            pass
+                        break
+                    else:
+                        print("\nPlease enter valid input")
+                        input("Press enter to continue")
+                        clearConsole()
+    except FileNotFoundError:
+        open(folderName, "x")
+        bookmarks()
+
+
+remove_empty_lines(folderName)
+
+
 def choose():  # Input validated menu
-    print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Delete All Bookmarks\n4. New Folder\n5. Open Folder\n6. Display All Folders\n7. Exit")
+    print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Delete All Bookmarks\n4. Delete Specific Bookmark\n5. New Folder\n6. Open Folder\n7. Display All Folders\n8. Exit")
     choice = input()
     match choice:
         case '1':
@@ -172,17 +241,19 @@ def choose():  # Input validated menu
             clearConsole()
             choose()
         case '4':
-            folder()
+            delSpec()
+            clearConsole()
+            choose()
         case '5':
+            folder()
+        case '6':
             clearConsole()
             folderChoose()
-        case '6':
+        case '7':
             displayFolders()
             choose()
-        case '7':
+        case '8':
             leave()
-            clearConsole()
-            choose()
         case other:
             print("\nPlease enter valid input")
             input("Press enter to continue")
