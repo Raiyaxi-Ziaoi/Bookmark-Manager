@@ -2,7 +2,7 @@ import os
 import webbrowser
 from sys import platform
 
-folderName = "bookmarks.txt"
+folderName = "Main Bookmarks.txt"
 
 
 def clearConsole():  # Clears console
@@ -159,11 +159,10 @@ def remove_empty_lines(filename):
     if not os.path.isfile(filename):
         print("{} does not exist ".format(filename))
         return
-    with open(filename) as filehandle:
-        lines = filehandle.readlines()
-    with open(filename, 'w') as filehandle:
-        lines = filter(lambda x: x.strip(), lines)
-        filehandle.writelines(lines)
+    with open(filename, "r") as r:
+        lines = r.read()
+    with open(filename, "w") as w:
+        w.write("\n".join([i for i in lines.split('\n') if len(i) > 0]))
 
 
 def delSpec():
@@ -221,10 +220,8 @@ def delSpec():
         bookmarks()
 
 
-remove_empty_lines(folderName)
-
-
 def choose():  # Input validated menu
+    remove_empty_lines(folderName)
     print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Delete All Bookmarks\n4. Delete Specific Bookmark\n5. New Folder\n6. Open Folder\n7. Display All Folders\n8. Exit")
     choice = input()
     match choice:
