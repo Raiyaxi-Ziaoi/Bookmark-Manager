@@ -9,7 +9,7 @@ folderName = "Main Bookmarks.txt"
 
 def clearConsole():  # Clears console
     command = 'clear'
-    if os.name in ('nt', 'dos'):
+    if os.name in ('nt', 'dos'): # If OS is Win
         command = 'cls'
     os.system(command)
 
@@ -20,8 +20,8 @@ def delete():  # Deletes all bookmarks in a folder
         print("\nAre you sure you want to delete all bookmarks? (Y / N):")
         yn = input()
         if yn.lower() == "y":
-            os.remove(folderName)
-            open(folderName, "x")
+            os.remove(folderName) # Delete folder
+            open(folderName, "x") # Creates folder
             break
         elif yn.lower() == "n":
             break
@@ -42,20 +42,20 @@ def leave():  # Exits program
 def write():  # Writing new bookmarks to file
     clearConsole()
     try:
-        with open(folderName, "a") as f:
+        with open(folderName, "a") as f: # Append to file
             print("\nType back to go back to menu")
-            label = input("\nPlease input label for bookmark: ")
-            if label.lower() == "back":
+            label = input("\nPlease input label for bookmark: ") # Label
+            if label.lower() == "back": # Go back
                 clearConsole()
                 choose()
-            url = input("\nPlease input URL for bookmark: ")
+            url = input("\nPlease input URL for bookmark: ") # URL
             if url.lower() == "back":
                 choose()
-            if os.stat(folderName).st_size == 0:
+            if os.stat(folderName).st_size == 0: # File checks
                 f.write(f"{label},{url}")
             else:
                 f.write(f"\n{label},{url}")
-    except FileNotFoundError:
+    except FileNotFoundError: # File not found
         open(folderName, "x")
         write()
 
@@ -74,9 +74,9 @@ def bookmarks():  # Display existing bookmarks
                 text = text.split("\n")
 
                 i = 1
-                ulist = []
+                ulist = [] # Bookmark list
                 for item in text:
-                    item = item.split(",")
+                    item = item.split(",") # Split and format
                     if i < 10:
                         print(f"0{i}. {item[0]}")
                     else:
@@ -88,15 +88,15 @@ def bookmarks():  # Display existing bookmarks
                     exceptionPass = True
                     choice = input("\nEnter bookmark to open: ")
                     if choice.lower() == "back":
-                        break
+                        break # Go back
                     try:
                         choice = int(choice)
                     except Exception:
                         exceptionPass = False
-                    if exceptionPass and choice - 1 <= len(ulist) and choice - 1 >= 0:
-                        webbrowser.open(ulist[choice - 1][0])
+                    if exceptionPass and choice - 1 <= len(ulist) and choice - 1 >= 0: # Checks
+                        webbrowser.open(ulist[choice - 1][0]) # Open
                         break
-                    else:
+                    else: # Exception not passed
                         print("\nPlease enter valid input")
                         input("Press enter to continue")
                         clearConsole()
@@ -110,12 +110,12 @@ def folderChoose():  # Choose folder to enter
         print("\nType back to go back to menu")
         folderIn = input("\nWhich folder do you want to open?: ")
         if folderIn.lower() == "back":
-            break
+            break # Go back
         if os.path.exists(folderIn + ".txt"):
-            global folderName
+            global folderName # Changes current bookmark folder
             folderName = folderIn + ".txt"
             break
-        else:
+        else: # Folder does not exist
             print("\nFolder does not exist")
             input("Press enter to continue")
             clearConsole()
@@ -128,14 +128,14 @@ def folder():  # Create folder
     while True:
         print("\nType back to go back to menu")
         folder = input("\nPlease enter folder name: ")
-        if folder.lower() == "back":
+        if folder.lower() == "back": # Go back
             clearConsole()
             choose()
         try:
-            open(folder + ".txt", "x")
+            open(folder + ".txt", "x") # Make folder
             break
-        except Exception:
-            print("\nFolder already exists.")
+        except Exception: # Folder already exists
+            print("\nFolder already exists.") 
             input("Press enter to continue")
             clearConsole()
     folderChoose()
@@ -144,9 +144,9 @@ def folder():  # Create folder
 def displayFolders():  # Display all folders
     clearConsole()
     file_list = [f for f in os.listdir('.') if os.path.isfile(
-        os.path.join('.', f)) and f.endswith('.txt')]
+        os.path.join('.', f)) and f.endswith('.txt')] # Python list magic
     i = 1
-    for file in file_list:
+    for file in file_list: # Display all with formatting
         file = file.replace(".txt", "")
         if i < 10:
             print(f"0{i}. {file}")
@@ -157,20 +157,20 @@ def displayFolders():  # Display all folders
     clearConsole()
 
 
-def remove_empty_lines(filename):
+def remove_empty_lines(filename): # Python does unusual things if this wasnt here
     if not os.path.isfile(filename):
         print("{} does not exist ".format(filename))
         return
     with open(filename, "r") as r:
         lines = r.read()
     with open(filename, "w") as w:
-        w.write("\n".join([i for i in lines.split('\n') if len(i) > 0]))
+        w.write("\n".join([i for i in lines.split('\n') if len(i) > 0])) # More Python list magic
 
 
-def delSpec():
+def delSpec(): # Delete specific bookmark
     clearConsole()
     try:
-        with open(folderName, "r") as f:
+        with open(folderName, "r") as f: # Open folder
             print()
             if os.stat(folderName).st_size == 0:
                 input("\nThe folder is empty. Please press enter to return to menu.")
@@ -181,7 +181,7 @@ def delSpec():
                 text = text.split("\n")
 
                 i = 1
-                ulist = []
+                ulist = [] # Bookmark List
                 for item in text:
                     item = item.split(",")
                     if i < 10:
@@ -202,10 +202,10 @@ def delSpec():
                         exceptionPass = False
                     if exceptionPass and choice - 1 <= len(ulist) and choice - 1 >= 0:
                         try:
-                            with open(folderName, 'r') as fr:
+                            with open(folderName, 'r') as fr: # Read to find line to delete
                                 lines = fr.readlines()
                                 ptr = 1
-                                with open(folderName, 'w') as fw:
+                                with open(folderName, 'w') as fw: # Delete line
                                     for line in lines:
                                         if ptr != choice:
                                             fw.write(line)
@@ -226,7 +226,7 @@ def choose():  # Input validated menu
     remove_empty_lines(folderName)
     print("\nEnter Choice:\n1. Write New Bookmark\n2. Open Bookmarks\n3. Delete All Bookmarks\n4. Delete Specific Bookmark\n5. New Folder\n6. Open Folder\n7. Display All Folders\n8. Exit")
     choice = input()
-    match choice:
+    match choice: # New Python feature ftw
         case '1':
             write()
             clearConsole()
