@@ -1,3 +1,5 @@
+# Imports
+
 import os
 import webbrowser
 from sys import platform
@@ -258,7 +260,7 @@ def choose():  # Input validated menu
             choose()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # Main
     os.system('TITLE Bookmark Manager')
     os.system('COLOR 0a')
     print("Welcome to Bookmark Manager\n")
