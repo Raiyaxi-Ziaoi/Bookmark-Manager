@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/lRzzpEU.png"></img>
 
-# Fetch
+# Depot
 
 <div align="center"><h2>
 A customisable bookmark manager made in Python <br/><br/>Made by Raiyaxi Ziaoi and <a href="https://github.com/28add11">Nicholas</a>
