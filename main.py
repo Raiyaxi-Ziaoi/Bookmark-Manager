@@ -263,7 +263,7 @@ def choose():  # Input validated menu
 
 
 if __name__ == "__main__":  # Main
-    os.system('TITLE Depot')
+    os.system('TITLE Register')
     os.system('COLOR 0a')
-    print("Welcome to Depot\n")
+    print("Welcome to Register\n")
     choose()
