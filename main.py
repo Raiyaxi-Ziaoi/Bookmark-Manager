@@ -34,7 +34,7 @@ def delete():  # Deletes all bookmarks in a folder
 
 def leave():  # Exits program
     clearConsole()
-    print("\nThank you for using Bookmark Manager")
+    print("\nThank you for using Register")
     input("\nPress enter to continue...")
     exit()
 
