@@ -3,7 +3,7 @@
 # Register
 
 <div align="center"><h2>
-A customisable bookmark manager made in Python <br/><br/>>Made by Abu Hurayrah
+A customisable bookmark manager made in Python <br/><br/>Made by Abu Hurayrah
 </h2></div>
 
 The "Main Bookmarks.txt" file contains sample websites and more can be added via the application itself. It is also automatically formatted by the program when you use its built-in bookmark adder.
